@@ -46,6 +46,7 @@ export default function ParametrosForm({
           maxDate={dataFim ?? maxDate}
           placeholder="Selecione"
           showIcon
+          mask="99/99/9999"
         />
       </div>
 
@@ -59,6 +60,7 @@ export default function ParametrosForm({
           maxDate={maxDate}
           placeholder="Selecione"
           showIcon
+          mask="99/99/9999"
         />
       </div>
 
