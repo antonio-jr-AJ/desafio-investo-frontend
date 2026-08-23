@@ -6,26 +6,32 @@ import { formatarPercentual } from '../../utils/formatadores';
 interface TabelaComparacaoAnualProps {
   resumoA: Resumo | null;
   resumoB: Resumo | null;
+  resumoBenchmark: Resumo | null;
   nomeCarteiraA?: string;
   nomeCarteiraB?: string;
+  nomeBenchmark?: string;
 }
 
 interface LinhaAnual {
   ano: string;
   carteiraA: string;
   carteiraB: string;
+  benchmark: string;
 }
 
 export default function TabelaComparacaoAnual({
   resumoA,
   resumoB,
+  resumoBenchmark,
   nomeCarteiraA = 'Carteira A',
   nomeCarteiraB = 'Carteira B',
+  nomeBenchmark = 'Benchmark',
 }: TabelaComparacaoAnualProps) {
-  if (!resumoA && !resumoB) return null;
+  if (!resumoA && !resumoB && !resumoBenchmark) return null;
 
   const anosA = resumoA?.anos ?? [];
   const anosB = resumoB?.anos ?? [];
+  const anosBenchmark = resumoBenchmark?.anos ?? [];
 
   const mapaAnos = new Map<string, LinhaAnual>();
 
@@ -34,6 +40,7 @@ export default function TabelaComparacaoAnual({
       ano: ano.label,
       carteiraA: formatarPercentual(ano.rentabilidadePeriodo),
       carteiraB: '-',
+      benchmark: '-',
     });
   }
 
@@ -46,6 +53,21 @@ export default function TabelaComparacaoAnual({
         ano: ano.label,
         carteiraA: '-',
         carteiraB: formatarPercentual(ano.rentabilidadePeriodo),
+        benchmark: '-',
+      });
+    }
+  }
+
+  for (const ano of anosBenchmark) {
+    const existente = mapaAnos.get(ano.label);
+    if (existente) {
+      existente.benchmark = formatarPercentual(ano.rentabilidadePeriodo);
+    } else {
+      mapaAnos.set(ano.label, {
+        ano: ano.label,
+        carteiraA: '-',
+        carteiraB: '-',
+        benchmark: formatarPercentual(ano.rentabilidadePeriodo),
       });
     }
   }
@@ -69,6 +91,7 @@ export default function TabelaComparacaoAnual({
         <Column field="ano" header="Ano" />
         <Column field="carteiraA" header={nomeCarteiraA} />
         <Column field="carteiraB" header={nomeCarteiraB} />
+        <Column field="benchmark" header={nomeBenchmark} />
       </DataTable>
     </div>
   );

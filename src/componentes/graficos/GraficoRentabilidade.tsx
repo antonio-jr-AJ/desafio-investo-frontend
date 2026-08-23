@@ -9,29 +9,34 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import type { HistoricoRentabilidade } from '../../dominio/tipos';
-import { COR_CARTEIRA_A, COR_CARTEIRA_B } from '../../dominio/constantes';
+import { COR_CARTEIRA_A, COR_CARTEIRA_B, COR_BENCHMARK } from '../../dominio/constantes';
 import { formatarDataMesAno } from '../../utils/formatadores';
 
 interface PontoGrafico {
   data: string;
   carteiraA?: number;
   carteiraB?: number;
+  benchmark?: number;
 }
 
 interface GraficoRentabilidadeProps {
   rentabilidadeA: HistoricoRentabilidade[];
   rentabilidadeB: HistoricoRentabilidade[];
+  rentabilidadeBenchmark: HistoricoRentabilidade[];
   nomeCarteiraA?: string;
   nomeCarteiraB?: string;
+  nomeBenchmark?: string;
 }
 
 export default function GraficoRentabilidade({
   rentabilidadeA,
   rentabilidadeB,
+  rentabilidadeBenchmark,
   nomeCarteiraA = 'Carteira A',
   nomeCarteiraB = 'Carteira B',
+  nomeBenchmark = 'Benchmark',
 }: GraficoRentabilidadeProps) {
-  const dados = agruparDados(rentabilidadeA, rentabilidadeB);
+  const dados = agruparDados(rentabilidadeA, rentabilidadeB, rentabilidadeBenchmark);
 
   return (
     <div
@@ -78,6 +83,15 @@ export default function GraficoRentabilidade({
             strokeWidth={2}
             dot={false}
           />
+          <Line
+            type="monotone"
+            dataKey="benchmark"
+            name={nomeBenchmark}
+            stroke={COR_BENCHMARK}
+            strokeWidth={2}
+            dot={false}
+            strokeDasharray="5 5"
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
@@ -86,7 +100,8 @@ export default function GraficoRentabilidade({
 
 function agruparDados(
   rentabilidadeA: HistoricoRentabilidade[],
-  rentabilidadeB: HistoricoRentabilidade[]
+  rentabilidadeB: HistoricoRentabilidade[],
+  rentabilidadeBenchmark: HistoricoRentabilidade[]
 ): PontoGrafico[] {
   const mapa = new Map<string, PontoGrafico>();
 
@@ -103,6 +118,17 @@ function agruparDados(
         existente.carteiraB = ponto.acumulado;
       } else {
         mapa.set(ponto.data, { data: ponto.data, carteiraB: ponto.acumulado });
+      }
+    }
+  }
+
+  if (rentabilidadeBenchmark.length > 0) {
+    for (const ponto of rentabilidadeBenchmark[0].rentabilidade) {
+      const existente = mapa.get(ponto.data);
+      if (existente) {
+        existente.benchmark = ponto.acumulado;
+      } else {
+        mapa.set(ponto.data, { data: ponto.data, benchmark: ponto.acumulado });
       }
     }
   }

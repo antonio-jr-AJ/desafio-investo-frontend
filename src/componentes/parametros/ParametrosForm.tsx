@@ -1,13 +1,17 @@
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
+import { Dropdown } from 'primereact/dropdown';
+import { BENCHMARKS_DISPONIVEIS } from '../../dominio/constantes';
 
 interface ParametrosFormProps {
   dataInicio: Date | null;
   dataFim: Date | null;
   dataMinima: string;
   dataMaxima: string;
+  benchmarkSelecionado: string;
   onDataInicioChange: (data: Date | null) => void;
   onDataFimChange: (data: Date | null) => void;
+  onBenchmarkChange: (codigo: string) => void;
   onSimular: () => void;
   desabilitar: boolean;
   carregando: boolean;
@@ -18,14 +22,21 @@ export default function ParametrosForm({
   dataFim,
   dataMinima,
   dataMaxima,
+  benchmarkSelecionado,
   onDataInicioChange,
   onDataFimChange,
+  onBenchmarkChange,
   onSimular,
   desabilitar,
   carregando,
 }: ParametrosFormProps) {
   const minDate = dataMinima ? new Date(dataMinima + 'T00:00:00') : undefined;
   const maxDate = dataMaxima ? new Date(dataMaxima + 'T00:00:00') : undefined;
+
+  const benchmarkOpcoes = BENCHMARKS_DISPONIVEIS.map((b) => ({
+    label: b.nome,
+    value: b.codigo,
+  }));
 
   return (
     <div
@@ -61,6 +72,17 @@ export default function ParametrosForm({
           placeholder="Selecione"
           showIcon
           mask="99/99/9999"
+        />
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <label style={{ fontSize: '13px', fontWeight: 500 }}>Benchmark</label>
+        <Dropdown
+          value={benchmarkSelecionado}
+          options={benchmarkOpcoes}
+          onChange={(e) => onBenchmarkChange(e.value)}
+          placeholder="Selecione"
+          style={{ minWidth: '140px' }}
         />
       </div>
 

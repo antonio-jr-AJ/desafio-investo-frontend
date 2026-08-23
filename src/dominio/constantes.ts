@@ -7,3 +7,12 @@ export const COR_BENCHMARK = '#1e293b';
 
 export const PESO_MAXIMO = 100;
 export const PESO_MINIMO = 0;
+
+export interface BenchmarkOpcao {
+  codigo: string;
+  nome: string;
+}
+
+export const BENCHMARKS_DISPONIVEIS: BenchmarkOpcao[] = [
+  { codigo: 'CDI', nome: 'CDI' },
+];
