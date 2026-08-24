@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import type { HistoricoRentabilidade } from '../../dominio/tipos';
 import { COR_CARTEIRA_A, COR_CARTEIRA_B, COR_BENCHMARK } from '../../dominio/constantes';
-import { formatarDataMesAno } from '../../utils/formatadores';
+import { formatarDataMesAno, formatarDataDiaMes } from '../../utils/formatadores';
 
 interface PontoGrafico {
   data: string;
@@ -34,9 +34,13 @@ export default function GraficoRentabilidade({
   rentabilidadeBenchmark,
   nomeCarteiraA = 'Carteira A',
   nomeCarteiraB = 'Carteira B',
-  nomeBenchmark = 'Benchmark',
+  nomeBenchmark = 'CDI',
 }: GraficoRentabilidadeProps) {
   const dados = agruparDados(rentabilidadeA, rentabilidadeB, rentabilidadeBenchmark);
+
+  const diffMeses = calcularDiffMeses(dados);
+  const usarMesAno = diffMeses > 12;
+  const formatadorX = (label: string) => usarMesAno ? formatarDataMesAno(label) : formatarDataDiaMes(label);
 
   return (
     <div
@@ -47,15 +51,17 @@ export default function GraficoRentabilidade({
       }}
     >
       <h3 style={{ margin: '0 0 16px', fontSize: '16px', fontWeight: 600 }}>
-        Rentabilidade Acumulada
+        Rentabilidade (%)
       </h3>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={dados}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
           <XAxis
             dataKey="data"
-            tickFormatter={formatarDataMesAno}
+            tickFormatter={formatadorX}
             tick={{ fontSize: 12 }}
+            interval="preserveStartEnd"
+            minTickGap={50}
           />
           <YAxis
             tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`}
@@ -64,9 +70,9 @@ export default function GraficoRentabilidade({
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <Tooltip
             formatter={(value: any) => `${(Number(value) * 100).toFixed(2)}%`}
-            labelFormatter={(label: any) => formatarDataMesAno(String(label))}
+            labelFormatter={(label: any) => formatadorX(String(label))}
           />
-          <Legend />
+          <Legend content={<LegendaCustomizada />} />
           <Line
             type="monotone"
             dataKey="carteiraA"
@@ -96,6 +102,15 @@ export default function GraficoRentabilidade({
       </ResponsiveContainer>
     </div>
   );
+}
+
+function calcularDiffMeses(dados: PontoGrafico[]): number {
+  if (dados.length < 2) return 0;
+  const primeira = new Date(dados[0].data.split('T')[0]);
+  const ultima = new Date(dados[dados.length - 1].data.split('T')[0]);
+  const diffAnos = ultima.getFullYear() - primeira.getFullYear();
+  const diffMeses = ultima.getMonth() - primeira.getMonth();
+  return diffAnos * 12 + diffMeses;
 }
 
 function agruparDados(
@@ -135,5 +150,32 @@ function agruparDados(
 
   return Array.from(mapa.values()).sort((a, b) =>
     a.data.localeCompare(b.data)
+  );
+}
+
+function LegendaCustomizada() {
+  const itens = [
+    { nome: 'Carteira A', cor: COR_CARTEIRA_A, tracejada: false },
+    { nome: 'Carteira B', cor: COR_CARTEIRA_B, tracejada: false },
+    { nome: 'CDI', cor: COR_BENCHMARK, tracejada: true },
+  ];
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', paddingTop: '8px' }}>
+      {itens.map((item) => (
+        <div key={item.nome} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span
+            style={{
+              width: '16px',
+              height: '3px',
+              backgroundColor: item.cor,
+              display: 'inline-block',
+              borderTop: item.tracejada ? '2px dashed' : 'none',
+            }}
+          />
+          <span style={{ fontSize: '12px' }}>{item.nome}</span>
+        </div>
+      ))}
+    </div>
   );
 }

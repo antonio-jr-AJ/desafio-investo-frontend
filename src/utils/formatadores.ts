@@ -19,12 +19,12 @@ export function formatarDataAAAA_MM_DD(data: Date): string {
 }
 
 export function formatarDataDiaMes(dataISO: string): string {
-  const data = new Date(dataISO + 'T00:00:00');
+  const data = new Date(dataISO.split('T')[0] + 'T00:00:00');
   return data.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
 }
 
 export function formatarDataMesAno(dataISO: string): string {
-  const data = new Date(dataISO + 'T00:00:00');
+  const data = new Date(dataISO.split('T')[0] + 'T00:00:00');
   return data.toLocaleDateString('pt-BR', {
     month: '2-digit',
     year: '2-digit',
