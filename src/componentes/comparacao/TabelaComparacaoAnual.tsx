@@ -85,7 +85,7 @@ export default function TabelaComparacaoAnual({
       }}
     >
       <h3 style={{ margin: '0 0 16px', fontSize: '16px', fontWeight: 600 }}>
-        Comparativo Anual
+        Comparativo
       </h3>
       <DataTable value={dados} size="small" stripedRows>
         <Column field="ano" header="Ano" />
