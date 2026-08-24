@@ -48,6 +48,7 @@ export default function LinhaAtivo({
           filter
           filterBy="label"
           style={{ width: '100%' }}
+          showClear
         />
       </div>
       <div style={{ width: '100%', minWidth: 0 }}>

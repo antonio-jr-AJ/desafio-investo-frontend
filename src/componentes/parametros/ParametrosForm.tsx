@@ -41,14 +41,15 @@ export default function ParametrosForm({
   return (
     <div
       style={{
-        display: 'flex',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
         gap: '16px',
         alignItems: 'flex-end',
-        flexWrap: 'wrap',
+        width: '100%',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <label style={{ fontSize: '13px', fontWeight: 500 }}>Data Início</label>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: 0 }}>
+        <label style={{ fontSize: '13px', fontWeight: 500 }}>Data Inicial</label>
         <Calendar
           value={dataInicio}
           onChange={(e) => onDataInicioChange(e.value ?? null)}
@@ -57,12 +58,14 @@ export default function ParametrosForm({
           maxDate={dataFim ?? maxDate}
           placeholder="Selecione"
           showIcon
+          showTime={false}
           mask="99/99/9999"
+          style={{ width: '100%' }}
+          inputStyle={{ width: '100%' }}
         />
       </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <label style={{ fontSize: '13px', fontWeight: 500 }}>Data Fim</label>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: 0 }}>
+        <label style={{ fontSize: '13px', fontWeight: 500 }}>Data Final</label>
         <Calendar
           value={dataFim}
           onChange={(e) => onDataFimChange(e.value ?? null)}
@@ -71,28 +74,34 @@ export default function ParametrosForm({
           maxDate={maxDate}
           placeholder="Selecione"
           showIcon
+          showTime={false}
           mask="99/99/9999"
+          style={{ width: '100%' }}
+          inputStyle={{ width: '100%' }}
         />
       </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: 0 }}>
         <label style={{ fontSize: '13px', fontWeight: 500 }}>Benchmark</label>
         <Dropdown
           value={benchmarkSelecionado}
           options={benchmarkOpcoes}
           onChange={(e) => onBenchmarkChange(e.value)}
           placeholder="Selecione"
-          style={{ minWidth: '140px' }}
+          showClear
         />
       </div>
-
-      <Button
-        label="Simular"
-        icon="pi pi-play"
-        onClick={onSimular}
-        disabled={desabilitar || carregando}
-        loading={carregando}
-      />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: 0 }}>
+        <label style={{ fontSize: '13px', fontWeight: 500, visibility: 'hidden' }}>
+          Ação
+        </label>
+        <Button
+          label="Simular"
+          onClick={onSimular}
+          disabled={desabilitar || carregando}
+          loading={carregando}
+          style={{ width: '100%' }}
+        />
+      </div>
     </div>
   );
 }
