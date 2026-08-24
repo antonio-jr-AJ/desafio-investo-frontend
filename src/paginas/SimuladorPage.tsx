@@ -254,7 +254,7 @@ export default function SimuladorPage() {
     <div>
       <Toast ref={toast} />
 
-      <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '24px' }}>
+      <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '24px', textAlign: 'center' }}>
         Comparador de Carteiras
       </h1>
 

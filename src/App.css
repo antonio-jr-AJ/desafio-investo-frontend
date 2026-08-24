@@ -1,0 +1,25 @@
+body .p-inputtext,
+body .p-calendar .p-inputtext,
+body .p-inputnumber .p-inputtext {
+  padding: 0.5rem 0.75rem !important;
+  max-height: 38px !important;
+}
+
+body .p-dropdown {
+  padding: 0 !important;
+  max-height: 38px !important;
+}
+
+body .p-dropdown .p-dropdown-label {
+  padding: 0.5rem 0.75rem !important;
+  line-height: 1 !important;
+}
+
+body .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  padding: 0.5rem 0.75rem !important;
+}
+
+body .p-button {
+  padding: 0.5rem 1rem !important;
+  max-height: 38px !important;
+}

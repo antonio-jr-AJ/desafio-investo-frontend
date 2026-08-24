@@ -1,3 +1,4 @@
+import './App.css';
 import SimuladorPage from './paginas/SimuladorPage';
 
 function App() {
