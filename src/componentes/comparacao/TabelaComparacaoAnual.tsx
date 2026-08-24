@@ -2,6 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import type { Resumo } from '../../dominio/tipos';
 import { formatarPercentual } from '../../utils/formatadores';
+import { COR_CARTEIRA_A, COR_CARTEIRA_B, COR_BENCHMARK } from '../../dominio/constantes';
 
 interface TabelaComparacaoAnualProps {
   resumoA: Resumo | null;
@@ -17,6 +18,12 @@ interface LinhaAnual {
   carteiraA: string;
   carteiraB: string;
   benchmark: string;
+}
+
+function valorEhNegativo(texto: string): boolean {
+  if (texto === '-') return false;
+  const numero = parseFloat(texto.replace('%', '').replace(',', '.'));
+  return !isNaN(numero) && numero < 0;
 }
 
 export default function TabelaComparacaoAnual({
@@ -89,9 +96,27 @@ export default function TabelaComparacaoAnual({
       </h3>
       <DataTable value={dados} size="small" stripedRows>
         <Column field="ano" header="Ano" />
-        <Column field="carteiraA" header={nomeCarteiraA} />
-        <Column field="carteiraB" header={nomeCarteiraB} />
-        <Column field="benchmark" header={nomeBenchmark} />
+        <Column field="carteiraA"
+          header={<span style={{ color: COR_CARTEIRA_A, fontWeight: 600 }}>{nomeCarteiraA}</span>}
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.carteiraA) ? '#ef4444' : undefined }}>
+              {row.carteiraA}
+            </span>
+          )} />
+        <Column field="carteiraB"
+          header={<span style={{ color: COR_CARTEIRA_B, fontWeight: 600 }}>{nomeCarteiraB}</span>}
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.carteiraB) ? '#ef4444' : undefined }}>
+              {row.carteiraB}
+            </span>
+          )} />
+        <Column field="benchmark"
+          header={<span style={{ color: COR_BENCHMARK, fontWeight: 600 }}>{nomeBenchmark}</span>}
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.benchmark) ? '#ef4444' : undefined }}>
+              {row.benchmark}
+            </span>
+          )} />
       </DataTable>
     </div>
   );

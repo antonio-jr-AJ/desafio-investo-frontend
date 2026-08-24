@@ -2,6 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import type { Indicadores } from '../../dominio/tipos';
 import { formatarPercentual } from '../../utils/formatadores';
+import { COR_CARTEIRA_A, COR_CARTEIRA_B, COR_BENCHMARK } from '../../dominio/constantes';
 
 interface TabelaIndicadoresProps {
   indicadoresA: Indicadores | null;
@@ -20,6 +21,12 @@ interface LinhaIndicador {
   drawdown: string;
 }
 
+function valorEhNegativo(texto: string): boolean {
+  if (texto === '-') return false;
+  const numero = parseFloat(texto.replace('%', '').replace(',', '.'));
+  return !isNaN(numero) && numero < 0;
+}
+
 export default function TabelaIndicadores({
   indicadoresA,
   indicadoresB,
@@ -29,6 +36,12 @@ export default function TabelaIndicadores({
   nomeBenchmark = 'CDI',
 }: TabelaIndicadoresProps) {
   if (!indicadoresA && !indicadoresB && !indicadoresBenchmark) return null;
+
+  const cores: Record<string, string> = {
+    [nomeCarteiraA]: COR_CARTEIRA_A,
+    [nomeCarteiraB]: COR_CARTEIRA_B,
+    [nomeBenchmark]: COR_BENCHMARK,
+  };
 
   const dados: LinhaIndicador[] = [
     {
@@ -66,11 +79,36 @@ export default function TabelaIndicadores({
         Indicadores
       </h3>
       <DataTable value={dados} size="small" stripedRows>
-        <Column field="carteira" header="Carteira" />
-        <Column field="rentabilidade" header="Rentabilidade" />
-        <Column field="sharpe" header="Sharpe" />
-        <Column field="volatilidade" header="Volatilidade" />
-        <Column field="drawdown" header="Drawdown" />
+        <Column field="carteira" header="Carteira"
+          body={(row) => (
+            <span style={{ color: cores[row.carteira], fontWeight: 600 }}>
+              {row.carteira}
+            </span>
+          )} />
+        <Column field="rentabilidade" header="Rentabilidade"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.rentabilidade) ? '#ef4444' : undefined }}>
+              {row.rentabilidade}
+            </span>
+          )} />
+        <Column field="sharpe" header="Sharpe"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.sharpe) ? '#ef4444' : undefined }}>
+              {row.sharpe}
+            </span>
+          )} />
+        <Column field="volatilidade" header="Volatilidade"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.volatilidade) ? '#ef4444' : undefined }}>
+              {row.volatilidade}
+            </span>
+          )} />
+        <Column field="drawdown" header="Drawdown"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.drawdown) ? '#ef4444' : undefined }}>
+              {row.drawdown}
+            </span>
+          )} />
       </DataTable>
     </div>
   );
