@@ -1,9 +1,8 @@
+import './App.css';
+import SimuladorPage from './paginas/SimuladorPage';
+
 function App() {
-  return (
-    <div>
-      <h1>Comparador de Carteiras</h1>
-    </div>
-  )
+  return <SimuladorPage />;
 }
 
-export default App
+export default App;

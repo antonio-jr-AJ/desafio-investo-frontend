@@ -1,0 +1,92 @@
+body .p-inputtext,
+body .p-calendar .p-inputtext,
+body .p-inputnumber .p-inputtext {
+  padding: 0.5rem 0.75rem !important;
+  height: 38px !important;
+}
+
+body .p-dropdown {
+  padding: 0 !important;
+  height: 38px !important;
+}
+
+body .p-dropdown .p-dropdown-label {
+  padding: 0.5rem 0.75rem !important;
+  line-height: 1 !important;
+}
+
+body .p-dropdown .p-dropdown-clear-icon {
+  right: 2.5rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+body .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  padding: 0.5rem 0.75rem !important;
+}
+
+body .p-dropdown-filter-container {
+  position: relative !important;
+}
+
+body .p-dropdown-filter {
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem !important;
+  height: 38px !important;
+}
+
+body .p-dropdown-filter-icon {
+  right: 0.75rem !important;
+  top: 50% !important;
+  margin-top: -0.5rem !important;
+}
+
+body .p-calendar-panel {
+  padding: 0.5rem !important;
+}
+
+body .p-calendar-panel .p-datepicker {
+  padding: 0.5rem !important;
+}
+
+body .p-calendar-panel .p-datepicker-header {
+  padding: 0.5rem !important;
+}
+
+body .p-calendar-panel .p-datepicker-header .p-datepicker-prev,
+body .p-calendar-panel .p-datepicker-header .p-datepicker-next {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+body .p-calendar-panel .p-datepicker-header .p-datepicker-title {
+  gap: 0.5rem !important;
+}
+
+body .p-calendar-panel .p-datepicker table td span {
+  padding: 0.4rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+body .p-calendar-panel .p-timepicker {
+  padding: 0.5rem !important;
+}
+
+body .p-button {
+  padding: 0.5rem 1rem !important;
+  height: 38px !important;
+}
+
+body .p-toast {
+  gap: 0.5rem !important;
+}
+
+body .p-toast-message {
+  padding: 0.75rem 1rem !important;
+  margin: 0 !important;
+}
+
+body .p-toast-message-content {
+  padding: 0 !important;
+  gap: 0.5rem !important;
+}

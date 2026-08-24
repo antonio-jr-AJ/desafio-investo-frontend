@@ -38,35 +38,41 @@ export default function LinhaAtivo({
     }));
 
   return (
-    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-      <Dropdown
-        value={item.ativo}
-        options={opcoesAtivos}
-        onChange={(e) => onAtivoChange(index, e.value)}
-        placeholder="Selecione um ativo"
-        style={{ flex: 1 }}
-        filter
-        filterBy="label"
-      />
-      <InputNumber
-        value={item.peso}
-        onValueChange={(e) => onPesoChange(index, e.value ?? 0)}
-        suffix="%"
-        min={0}
-        max={100}
-        mode="decimal"
-        minFractionDigits={0}
-        maxFractionDigits={2}
-        style={{ width: '100px' }}
-      />
-      <Button
-        icon="pi pi-trash"
-        severity="danger"
-        text
-        rounded
-        onClick={() => onRemover(index)}
-        disabled={desabilitarRemover}
-      />
+    <div style={{ display: 'grid', gridTemplateColumns: '60% 25% 15%', gap: '12px', alignItems: 'center' }}>
+      <div style={{ minWidth: 0 }}>
+        <Dropdown
+          value={item.ativo}
+          options={opcoesAtivos}
+          onChange={(e) => onAtivoChange(index, e.value)}
+          placeholder="Selecione um ativo"
+          filter
+          filterBy="label"
+          style={{ width: '100%' }}
+          showClear
+        />
+      </div>
+      <div style={{ width: '100%', minWidth: 0 }}>
+        <InputNumber
+          value={item.peso}
+          onValueChange={(e) => onPesoChange(index, e.value ?? 0)}
+          suffix="%"
+          min={0}
+          max={100}
+          mode="decimal"
+          minFractionDigits={0}
+          maxFractionDigits={2}
+          style={{ width: '100%' }}
+          inputStyle={{ width: '100%' }}
+        />
+      </div>
+      <div style={{ minWidth: 0 }}>
+        <Button
+          icon="pi pi-trash"
+          severity="danger"
+          onClick={() => onRemover(index)}
+          disabled={desabilitarRemover}
+        />
+      </div>
     </div>
   );
 }

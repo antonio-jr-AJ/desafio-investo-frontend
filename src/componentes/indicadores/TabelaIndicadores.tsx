@@ -2,68 +2,82 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import type { Indicadores } from '../../dominio/tipos';
 import { formatarPercentual } from '../../utils/formatadores';
+import { COR_CARTEIRA_A, COR_CARTEIRA_B, COR_BENCHMARK } from '../../dominio/constantes';
 
 interface TabelaIndicadoresProps {
   indicadoresA: Indicadores | null;
   indicadoresB: Indicadores | null;
+  indicadoresBenchmark: Indicadores | null;
   nomeCarteiraA?: string;
   nomeCarteiraB?: string;
+  nomeBenchmark?: string;
 }
 
 interface LinhaIndicador {
-  indicador: string;
-  carteiraA: string | number;
-  carteiraB: string | number;
+  carteira: string;
+  rentabilidade: string;
+  sharpe: string;
+  volatilidade: string;
+  drawdown: string;
+  percentualCDI: string;
+}
+
+function valorEhNegativo(texto: string): boolean {
+  if (texto === '-') return false;
+  const numero = parseFloat(texto.replace('%', '').replace(',', '.'));
+  return !isNaN(numero) && numero < 0;
 }
 
 export default function TabelaIndicadores({
   indicadoresA,
   indicadoresB,
+  indicadoresBenchmark,
   nomeCarteiraA = 'Carteira A',
   nomeCarteiraB = 'Carteira B',
+  nomeBenchmark = 'CDI',
 }: TabelaIndicadoresProps) {
-  if (!indicadoresA && !indicadoresB) return null;
+  if (!indicadoresA && !indicadoresB && !indicadoresBenchmark) return null;
+
+  const cores: Record<string, string> = {
+    [nomeCarteiraA]: COR_CARTEIRA_A,
+    [nomeCarteiraB]: COR_CARTEIRA_B,
+    [nomeBenchmark]: COR_BENCHMARK,
+  };
+
+  function calcularPercentualCDI(rentabilidadeCarteira: number | undefined): string {
+    if (!indicadoresBenchmark || rentabilidadeCarteira === undefined) return '-';
+    const cdi = indicadoresBenchmark.rentabilidadeAnualizada;
+    if (cdi === 0) return '-';
+    return (rentabilidadeCarteira / cdi * 100).toLocaleString('pt-BR', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    }) + '%';
+  }
 
   const dados: LinhaIndicador[] = [
     {
-      indicador: 'Rentabilidade Anualizada',
-      carteiraA: indicadoresA ? formatarPercentual(indicadoresA.rentabilidadeAnualizada) : '-',
-      carteiraB: indicadoresB ? formatarPercentual(indicadoresB.rentabilidadeAnualizada) : '-',
+      carteira: nomeCarteiraA,
+      rentabilidade: indicadoresA ? formatarPercentual(indicadoresA.rentabilidadeAnualizada) : '-',
+      sharpe: indicadoresA ? indicadoresA.sharpe.toFixed(2) : '-',
+      volatilidade: indicadoresA ? formatarPercentual(indicadoresA.volatilidadeAnualizada) : '-',
+      drawdown: indicadoresA ? formatarPercentual(indicadoresA.maxDrawdown) : '-',
+      percentualCDI: calcularPercentualCDI(indicadoresA?.rentabilidadeAnualizada),
     },
     {
-      indicador: 'Sharpe',
-      carteiraA: indicadoresA ? indicadoresA.sharpe.toFixed(2) : '-',
-      carteiraB: indicadoresB ? indicadoresB.sharpe.toFixed(2) : '-',
+      carteira: nomeCarteiraB,
+      rentabilidade: indicadoresB ? formatarPercentual(indicadoresB.rentabilidadeAnualizada) : '-',
+      sharpe: indicadoresB ? indicadoresB.sharpe.toFixed(2) : '-',
+      volatilidade: indicadoresB ? formatarPercentual(indicadoresB.volatilidadeAnualizada) : '-',
+      drawdown: indicadoresB ? formatarPercentual(indicadoresB.maxDrawdown) : '-',
+      percentualCDI: calcularPercentualCDI(indicadoresB?.rentabilidadeAnualizada),
     },
     {
-      indicador: 'Sortino',
-      carteiraA: indicadoresA ? indicadoresA.sortino.toFixed(2) : '-',
-      carteiraB: indicadoresB ? indicadoresB.sortino.toFixed(2) : '-',
-    },
-    {
-      indicador: 'Volatilidade Anualizada',
-      carteiraA: indicadoresA ? formatarPercentual(indicadoresA.volatilidadeAnualizada) : '-',
-      carteiraB: indicadoresB ? formatarPercentual(indicadoresB.volatilidadeAnualizada) : '-',
-    },
-    {
-      indicador: 'Desvio Padrão',
-      carteiraA: indicadoresA ? formatarPercentual(indicadoresA.desvioPadrao) : '-',
-      carteiraB: indicadoresB ? formatarPercentual(indicadoresB.desvioPadrao) : '-',
-    },
-    {
-      indicador: 'Max Drawdown',
-      carteiraA: indicadoresA ? formatarPercentual(indicadoresA.maxDrawdown) : '-',
-      carteiraB: indicadoresB ? formatarPercentual(indicadoresB.maxDrawdown) : '-',
-    },
-    {
-      indicador: 'Dias Drawdown',
-      carteiraA: indicadoresA ? indicadoresA.diasDrawdown.toString() : '-',
-      carteiraB: indicadoresB ? indicadoresB.diasDrawdown.toString() : '-',
-    },
-    {
-      indicador: 'Ulcer Index',
-      carteiraA: indicadoresA ? indicadoresA.ulcerIndex.toFixed(2) : '-',
-      carteiraB: indicadoresB ? indicadoresB.ulcerIndex.toFixed(2) : '-',
+      carteira: nomeBenchmark,
+      rentabilidade: indicadoresBenchmark ? formatarPercentual(indicadoresBenchmark.rentabilidadeAnualizada) : '-',
+      sharpe: indicadoresBenchmark ? indicadoresBenchmark.sharpe.toFixed(2) : '-',
+      volatilidade: indicadoresBenchmark ? formatarPercentual(indicadoresBenchmark.volatilidadeAnualizada) : '-',
+      drawdown: indicadoresBenchmark ? formatarPercentual(indicadoresBenchmark.maxDrawdown) : '-',
+      percentualCDI: '100%',
     },
   ];
 
@@ -79,9 +93,42 @@ export default function TabelaIndicadores({
         Indicadores
       </h3>
       <DataTable value={dados} size="small" stripedRows>
-        <Column field="indicador" header="Indicador" />
-        <Column field="carteiraA" header={nomeCarteiraA} />
-        <Column field="carteiraB" header={nomeCarteiraB} />
+        <Column field="carteira" header="Carteira"
+          body={(row) => (
+            <span style={{ color: cores[row.carteira], fontWeight: 600 }}>
+              {row.carteira}
+            </span>
+          )} />
+        <Column field="rentabilidade" header="Rentabilidade"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.rentabilidade) ? '#ef4444' : undefined }}>
+              {row.rentabilidade}
+            </span>
+          )} />
+        <Column field="sharpe" header="Sharpe"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.sharpe) ? '#ef4444' : undefined }}>
+              {row.sharpe}
+            </span>
+          )} />
+        <Column field="volatilidade" header="Volatilidade"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.volatilidade) ? '#ef4444' : undefined }}>
+              {row.volatilidade}
+            </span>
+          )} />
+        <Column field="drawdown" header="Drawdown"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.drawdown) ? '#ef4444' : undefined }}>
+              {row.drawdown}
+            </span>
+          )} />
+        <Column field="percentualCDI" header="% CDI"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.percentualCDI) ? '#ef4444' : undefined, fontWeight: 600 }}>
+              {row.percentualCDI}
+            </span>
+          )} />
       </DataTable>
     </div>
   );
