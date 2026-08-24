@@ -9,6 +9,17 @@ export function calcularSomaPesos(carteira: Carteira[]): number {
   return carteira.reduce((acc, item) => acc + item.peso, 0);
 }
 
+export function validarAtivosSelecionados(carteira: Carteira[]): boolean {
+  return carteira.length > 0 && carteira.every((item) => item.ativo !== null);
+}
+
+export function validarDuplicatas(carteira: Carteira[]): boolean {
+  const codigos = carteira
+    .filter((item) => item.ativo !== null)
+    .map((item) => item.ativo!.codigoAtivo);
+  return new Set(codigos).size === codigos.length;
+}
+
 function extrairData(data: string): string {
   return data.split('T')[0];
 }

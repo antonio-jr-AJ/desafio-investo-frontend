@@ -96,6 +96,7 @@ export default function ParametrosForm({
         </label>
         <Button
           label="Simular"
+          icon="pi pi-play"
           onClick={onSimular}
           disabled={desabilitar || carregando}
           loading={carregando}

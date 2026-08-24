@@ -7,7 +7,7 @@ import { GraficoRentabilidade } from '../componentes/graficos';
 import { TabelaIndicadores } from '../componentes/indicadores';
 import { TabelaComparacaoAnual } from '../componentes/comparacao';
 import { buscarAtivos, buscarIndicadores, buscarResumo, buscarRentabilidade } from '../api/simulacao.service';
-import { obterDataMinimaEfetiva, obterDataMaximaEfetiva, validarSomaPesos } from '../utils/validacoes';
+import { obterDataMinimaEfetiva, obterDataMaximaEfetiva, validarSomaPesos, validarAtivosSelecionados, validarDuplicatas } from '../utils/validacoes';
 import { formatarDataAAAA_MM_DD } from '../utils/formatadores';
 import { BENCHMARKS_DISPONIVEIS } from '../dominio/constantes';
 import type { Ativo, Carteira, Indicadores, Resumo, RentabilidadeCarteira } from '../dominio/tipos';
@@ -102,6 +102,46 @@ export default function SimuladorPage() {
         severity: 'warn',
         summary: 'Pesos inválidos',
         detail: 'A composição dos pesos da Carteira B deve somar 100%.',
+        life: 4000,
+      });
+      return;
+    }
+
+    if (!validarAtivosSelecionados(carteiraA)) {
+      toast.current?.show({
+        severity: 'warn',
+        summary: 'Ativos incompletos',
+        detail: 'Selecione pelo menos um ativo em cada linha da Carteira A.',
+        life: 4000,
+      });
+      return;
+    }
+
+    if (!validarAtivosSelecionados(carteiraB)) {
+      toast.current?.show({
+        severity: 'warn',
+        summary: 'Ativos incompletos',
+        detail: 'Selecione pelo menos um ativo em cada linha da Carteira B.',
+        life: 4000,
+      });
+      return;
+    }
+
+    if (!validarDuplicatas(carteiraA)) {
+      toast.current?.show({
+        severity: 'warn',
+        summary: 'Ativos duplicados',
+        detail: 'A Carteira A contém ativos duplicados. Remova as duplicatas.',
+        life: 4000,
+      });
+      return;
+    }
+
+    if (!validarDuplicatas(carteiraB)) {
+      toast.current?.show({
+        severity: 'warn',
+        summary: 'Ativos duplicados',
+        detail: 'A Carteira B contém ativos duplicados. Remova as duplicatas.',
         life: 4000,
       });
       return;

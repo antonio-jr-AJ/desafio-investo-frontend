@@ -19,6 +19,7 @@ interface LinhaIndicador {
   sharpe: string;
   volatilidade: string;
   drawdown: string;
+  percentualCDI: string;
 }
 
 function valorEhNegativo(texto: string): boolean {
@@ -43,6 +44,16 @@ export default function TabelaIndicadores({
     [nomeBenchmark]: COR_BENCHMARK,
   };
 
+  function calcularPercentualCDI(rentabilidadeCarteira: number | undefined): string {
+    if (!indicadoresBenchmark || rentabilidadeCarteira === undefined) return '-';
+    const cdi = indicadoresBenchmark.rentabilidadeAnualizada;
+    if (cdi === 0) return '-';
+    return (rentabilidadeCarteira / cdi * 100).toLocaleString('pt-BR', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    }) + '%';
+  }
+
   const dados: LinhaIndicador[] = [
     {
       carteira: nomeCarteiraA,
@@ -50,6 +61,7 @@ export default function TabelaIndicadores({
       sharpe: indicadoresA ? indicadoresA.sharpe.toFixed(2) : '-',
       volatilidade: indicadoresA ? formatarPercentual(indicadoresA.volatilidadeAnualizada) : '-',
       drawdown: indicadoresA ? formatarPercentual(indicadoresA.maxDrawdown) : '-',
+      percentualCDI: calcularPercentualCDI(indicadoresA?.rentabilidadeAnualizada),
     },
     {
       carteira: nomeCarteiraB,
@@ -57,6 +69,7 @@ export default function TabelaIndicadores({
       sharpe: indicadoresB ? indicadoresB.sharpe.toFixed(2) : '-',
       volatilidade: indicadoresB ? formatarPercentual(indicadoresB.volatilidadeAnualizada) : '-',
       drawdown: indicadoresB ? formatarPercentual(indicadoresB.maxDrawdown) : '-',
+      percentualCDI: calcularPercentualCDI(indicadoresB?.rentabilidadeAnualizada),
     },
     {
       carteira: nomeBenchmark,
@@ -64,6 +77,7 @@ export default function TabelaIndicadores({
       sharpe: indicadoresBenchmark ? indicadoresBenchmark.sharpe.toFixed(2) : '-',
       volatilidade: indicadoresBenchmark ? formatarPercentual(indicadoresBenchmark.volatilidadeAnualizada) : '-',
       drawdown: indicadoresBenchmark ? formatarPercentual(indicadoresBenchmark.maxDrawdown) : '-',
+      percentualCDI: '100%',
     },
   ];
 
@@ -107,6 +121,12 @@ export default function TabelaIndicadores({
           body={(row) => (
             <span style={{ color: valorEhNegativo(row.drawdown) ? '#ef4444' : undefined }}>
               {row.drawdown}
+            </span>
+          )} />
+        <Column field="percentualCDI" header="% CDI"
+          body={(row) => (
+            <span style={{ color: valorEhNegativo(row.percentualCDI) ? '#ef4444' : undefined, fontWeight: 600 }}>
+              {row.percentualCDI}
             </span>
           )} />
       </DataTable>
