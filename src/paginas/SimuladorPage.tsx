@@ -27,6 +27,7 @@ export default function SimuladorPage() {
   const [dataInicio, setDataInicio] = useState<Date | null>(null);
   const [dataFim, setDataFim] = useState<Date | null>(null);
   const [benchmarkSelecionado, setBenchmarkSelecionado] = useState<string>('');
+  const [benchmarkUsado, setBenchmarkUsado] = useState<string>('');
 
   const [indicadoresA, setIndicadoresA] = useState<Indicadores | null>(null);
   const [indicadoresB, setIndicadoresB] = useState<Indicadores | null>(null);
@@ -201,6 +202,7 @@ export default function SimuladorPage() {
 
     setCarregandoSimulacao(true);
     setResultadosVisiveis(false);
+    setBenchmarkUsado(benchmarkSelecionado);
 
     const { codigos: codigosA, pesos: pesosA } = extrairCodigosEPesos(carteiraA);
     const { codigos: codigosB, pesos: pesosB } = extrairCodigosEPesos(carteiraB);
@@ -355,7 +357,7 @@ export default function SimuladorPage() {
                   rentabilidadeA={rentabilidadeA.historico}
                   rentabilidadeB={rentabilidadeB.historico}
                   rentabilidadeBenchmark={rentabilidadeBenchmark.historico}
-                  nomeBenchmark={benchmarkSelecionado}
+                  nomeBenchmark={benchmarkUsado}
                 />
               )}
 
@@ -371,7 +373,7 @@ export default function SimuladorPage() {
                   indicadoresA={indicadoresA}
                   indicadoresB={indicadoresB}
                   indicadoresBenchmark={indicadoresBenchmark}
-                  nomeBenchmark={benchmarkSelecionado}
+                  nomeBenchmark={benchmarkUsado}
                 />
                 <TabelaComparacaoAnual
                   resumoA={resumoA}
