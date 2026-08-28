@@ -6,11 +6,10 @@ import { Carregando } from '../componentes/comuns';
 import { GraficoRentabilidade } from '../componentes/graficos';
 import { TabelaIndicadores } from '../componentes/indicadores';
 import { TabelaComparacaoAnual } from '../componentes/comparacao';
-import { buscarAtivos, buscarIndicadores, buscarResumo, buscarRentabilidade } from '../api/simulacao.service';
+import { buscarAtivos, buscarIndicesBenchmark, buscarIndicadores, buscarResumo, buscarRentabilidade } from '../api/simulacao.service';
 import { obterDataMinimaEfetiva, obterDataMaximaEfetiva, validarSomaPesos, validarAtivosSelecionados, validarDuplicatas } from '../utils/validacoes';
 import { formatarDataAAAA_MM_DD } from '../utils/formatadores';
-import { BENCHMARKS_DISPONIVEIS } from '../dominio/constantes';
-import type { Ativo, Carteira, Indicadores, Resumo, RentabilidadeCarteira } from '../dominio/tipos';
+import type { Ativo, Carteira, IndiceBenchmark, Indicadores, Resumo, RentabilidadeCarteira } from '../dominio/tipos';
 
 export default function SimuladorPage() {
   const toast = useRef<Toast>(null);
@@ -19,14 +18,16 @@ export default function SimuladorPage() {
   const [ativos, setAtivos] = useState<Ativo[]>([]);
   const [carregandoAtivos, setCarregandoAtivos] = useState(true);
 
+  const [indicesBenchmark, setIndicesBenchmark] = useState<IndiceBenchmark[]>([]);
+  const [carregandoIndices, setCarregandoIndices] = useState(true);
+
   const [carteiraA, setCarteiraA] = useState<Carteira[]>([{ ativo: null, peso: 100 }]);
   const [carteiraB, setCarteiraB] = useState<Carteira[]>([{ ativo: null, peso: 100 }]);
 
   const [dataInicio, setDataInicio] = useState<Date | null>(null);
   const [dataFim, setDataFim] = useState<Date | null>(null);
-  const [benchmarkSelecionado, setBenchmarkSelecionado] = useState<string>(
-    BENCHMARKS_DISPONIVEIS[0]?.codigo ?? ''
-  );
+  const [benchmarkSelecionado, setBenchmarkSelecionado] = useState<string>('');
+  const [benchmarkUsado, setBenchmarkUsado] = useState<string>('');
 
   const [indicadoresA, setIndicadoresA] = useState<Indicadores | null>(null);
   const [indicadoresB, setIndicadoresB] = useState<Indicadores | null>(null);
@@ -42,22 +43,27 @@ export default function SimuladorPage() {
   const [resultadosVisiveis, setResultadosVisiveis] = useState(false);
 
   useEffect(() => {
-    async function carregarAtivos() {
+    async function carregarDados() {
       try {
-        const resposta = await buscarAtivos();
-        setAtivos(resposta.ativos);
+        const [resAtivos, resIndices] = await Promise.all([
+          buscarAtivos(),
+          buscarIndicesBenchmark(),
+        ]);
+        setAtivos(resAtivos.ativos);
+        setIndicesBenchmark(resIndices.ativos);
       } catch {
         toast.current?.show({
           severity: 'error',
           summary: 'Erro',
-          detail: 'Não foi possível carregar os ativos. Tente novamente.',
+          detail: 'Não foi possível carregar os dados. Tente novamente.',
           life: 4000,
         });
       } finally {
         setCarregandoAtivos(false);
+        setCarregandoIndices(false);
       }
     }
-    carregarAtivos();
+    carregarDados();
   }, []);
 
   const todosAtivos = useMemo(() => {
@@ -196,6 +202,7 @@ export default function SimuladorPage() {
 
     setCarregandoSimulacao(true);
     setResultadosVisiveis(false);
+    setBenchmarkUsado(benchmarkSelecionado);
 
     const { codigos: codigosA, pesos: pesosA } = extrairCodigosEPesos(carteiraA);
     const { codigos: codigosB, pesos: pesosB } = extrairCodigosEPesos(carteiraB);
@@ -298,7 +305,7 @@ export default function SimuladorPage() {
         Comparador de Carteiras
       </h1>
 
-      {carregandoAtivos ? (
+      {carregandoAtivos || carregandoIndices ? (
         <Carregando />
       ) : (
         <>
@@ -331,6 +338,7 @@ export default function SimuladorPage() {
               dataMinima={dataMinimaEfetiva}
               dataMaxima={dataMaximaEfetiva}
               benchmarkSelecionado={benchmarkSelecionado}
+              indicesBenchmark={indicesBenchmark}
               onDataInicioChange={setDataInicio}
               onDataFimChange={setDataFim}
               onBenchmarkChange={setBenchmarkSelecionado}
@@ -349,6 +357,7 @@ export default function SimuladorPage() {
                   rentabilidadeA={rentabilidadeA.historico}
                   rentabilidadeB={rentabilidadeB.historico}
                   rentabilidadeBenchmark={rentabilidadeBenchmark.historico}
+                  nomeBenchmark={benchmarkUsado}
                 />
               )}
 
@@ -364,6 +373,7 @@ export default function SimuladorPage() {
                   indicadoresA={indicadoresA}
                   indicadoresB={indicadoresB}
                   indicadoresBenchmark={indicadoresBenchmark}
+                  nomeBenchmark={benchmarkUsado}
                 />
                 <TabelaComparacaoAnual
                   resumoA={resumoA}

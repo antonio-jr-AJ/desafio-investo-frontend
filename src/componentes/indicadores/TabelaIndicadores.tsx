@@ -10,7 +10,7 @@ interface TabelaIndicadoresProps {
   indicadoresBenchmark: Indicadores | null;
   nomeCarteiraA?: string;
   nomeCarteiraB?: string;
-  nomeBenchmark?: string;
+  nomeBenchmark: string;
 }
 
 interface LinhaIndicador {
@@ -34,7 +34,7 @@ export default function TabelaIndicadores({
   indicadoresBenchmark,
   nomeCarteiraA = 'Carteira A',
   nomeCarteiraB = 'Carteira B',
-  nomeBenchmark = 'CDI',
+  nomeBenchmark,
 }: TabelaIndicadoresProps) {
   if (!indicadoresA && !indicadoresB && !indicadoresBenchmark) return null;
 
