@@ -25,7 +25,7 @@ interface GraficoRentabilidadeProps {
   rentabilidadeBenchmark: HistoricoRentabilidade[];
   nomeCarteiraA?: string;
   nomeCarteiraB?: string;
-  nomeBenchmark?: string;
+  nomeBenchmark: string;
 }
 
 export default function GraficoRentabilidade({
@@ -34,7 +34,7 @@ export default function GraficoRentabilidade({
   rentabilidadeBenchmark,
   nomeCarteiraA = 'Carteira A',
   nomeCarteiraB = 'Carteira B',
-  nomeBenchmark = 'CDI',
+  nomeBenchmark,
 }: GraficoRentabilidadeProps) {
   const dados = agruparDados(rentabilidadeA, rentabilidadeB, rentabilidadeBenchmark);
 
@@ -72,7 +72,7 @@ export default function GraficoRentabilidade({
             formatter={(value: any) => `${(Number(value) * 100).toFixed(2)}%`}
             labelFormatter={(label: any) => formatadorX(String(label))}
           />
-          <Legend content={<LegendaCustomizada />} />
+          <Legend content={<LegendaCustomizada nomeBenchmark={nomeBenchmark} />} />
           <Line
             type="monotone"
             dataKey="carteiraA"
@@ -153,11 +153,11 @@ function agruparDados(
   );
 }
 
-function LegendaCustomizada() {
+function LegendaCustomizada({ nomeBenchmark }: { nomeBenchmark: string }) {
   const itens = [
     { nome: 'Carteira A', cor: COR_CARTEIRA_A, tracejada: false },
     { nome: 'Carteira B', cor: COR_CARTEIRA_B, tracejada: false },
-    { nome: 'CDI', cor: COR_BENCHMARK, tracejada: true },
+    { nome: nomeBenchmark, cor: COR_BENCHMARK, tracejada: true },
   ];
 
   return (

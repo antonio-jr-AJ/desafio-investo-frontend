@@ -355,6 +355,7 @@ export default function SimuladorPage() {
                   rentabilidadeA={rentabilidadeA.historico}
                   rentabilidadeB={rentabilidadeB.historico}
                   rentabilidadeBenchmark={rentabilidadeBenchmark.historico}
+                  nomeBenchmark={benchmarkSelecionado}
                 />
               )}
 
@@ -370,6 +371,7 @@ export default function SimuladorPage() {
                   indicadoresA={indicadoresA}
                   indicadoresB={indicadoresB}
                   indicadoresBenchmark={indicadoresBenchmark}
+                  nomeBenchmark={benchmarkSelecionado}
                 />
                 <TabelaComparacaoAnual
                   resumoA={resumoA}
