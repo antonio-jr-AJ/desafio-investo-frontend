@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
-import { BENCHMARKS_DISPONIVEIS } from '../../dominio/constantes';
+import type { IndiceBenchmark } from '../../dominio/tipos';
 
 interface ParametrosFormProps {
   dataInicio: Date | null;
@@ -9,6 +9,7 @@ interface ParametrosFormProps {
   dataMinima: string;
   dataMaxima: string;
   benchmarkSelecionado: string;
+  indicesBenchmark: IndiceBenchmark[];
   onDataInicioChange: (data: Date | null) => void;
   onDataFimChange: (data: Date | null) => void;
   onBenchmarkChange: (codigo: string) => void;
@@ -23,6 +24,7 @@ export default function ParametrosForm({
   dataMinima,
   dataMaxima,
   benchmarkSelecionado,
+  indicesBenchmark,
   onDataInicioChange,
   onDataFimChange,
   onBenchmarkChange,
@@ -33,9 +35,9 @@ export default function ParametrosForm({
   const minDate = dataMinima ? new Date(dataMinima + 'T00:00:00') : undefined;
   const maxDate = dataMaxima ? new Date(dataMaxima + 'T00:00:00') : undefined;
 
-  const benchmarkOpcoes = BENCHMARKS_DISPONIVEIS.map((b) => ({
-    label: b.nome,
-    value: b.codigo,
+  const benchmarkOpcoes = indicesBenchmark.map((indice) => ({
+    label: indice.codigoAtivo,
+    value: indice.codigoAtivo,
   }));
 
   return (

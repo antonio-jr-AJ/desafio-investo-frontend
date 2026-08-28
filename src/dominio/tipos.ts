@@ -69,6 +69,19 @@ export interface RentabilidadeCarteira {
   historico: HistoricoRentabilidade[];
 }
 
+export interface IndiceBenchmark {
+  codigoAtivo: string;
+  referencia: string;
+  tipo: string;
+  dataMinima: string;
+  dataMaxima: string;
+  datasDisponiveis: string;
+}
+
+export interface IndicesResponse {
+  ativos: IndiceBenchmark[];
+}
+
 export interface ErroApi {
   message: string;
   error?: string;

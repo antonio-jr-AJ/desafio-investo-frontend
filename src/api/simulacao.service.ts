@@ -2,6 +2,7 @@ import cliente from './cliente';
 import type {
   AtivosResponse,
   Indicadores,
+  IndicesResponse,
   Resumo,
   RentabilidadeCarteira,
 } from '../dominio/tipos';
@@ -50,6 +51,13 @@ export async function buscarRentabilidade(
       dataInicio,
       dataFim,
     },
+  });
+  return data;
+}
+
+export async function buscarIndicesBenchmark(): Promise<IndicesResponse> {
+  const { data } = await cliente.get('/api/comparacao/ativos', {
+    params: { tipo: 'INDICE' },
   });
   return data;
 }
