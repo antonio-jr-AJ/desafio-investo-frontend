@@ -10,12 +10,12 @@ export function calcularSomaPesos(carteira: Carteira[]): number {
 }
 
 export function validarAtivosSelecionados(carteira: Carteira[]): boolean {
-  return carteira.length > 0 && carteira.every((item) => item.ativo !== null);
+  return carteira.length > 0 && carteira.every((item) => item.ativo != null);
 }
 
 export function validarDuplicatas(carteira: Carteira[]): boolean {
   const codigos = carteira
-    .filter((item) => item.ativo !== null)
+    .filter((item) => item.ativo != null)
     .map((item) => item.ativo!.codigoAtivo);
   return new Set(codigos).size === codigos.length;
 }

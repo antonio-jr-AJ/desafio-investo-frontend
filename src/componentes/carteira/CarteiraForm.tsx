@@ -2,6 +2,7 @@ import { Button } from 'primereact/button';
 import LinhaAtivo from './LinhaAtivo';
 import type { Ativo, Carteira } from '../../dominio/tipos';
 import { calcularSomaPesos, validarSomaPesos } from '../../utils/validacoes';
+import { COR_VERDE, COR_PRETO, COR_CARTEIRA } from '../../dominio/constantes';
 
 interface CarteiraFormProps {
   titulo: string;
@@ -23,7 +24,7 @@ export default function CarteiraForm({
   const soma = calcularSomaPesos(carteira);
   const valido = validarSomaPesos(carteira);
 
-  function handleAtivoChange(index: number, ativo: Ativo | null) {
+  function handleAtivoChange(index: number, ativo: Ativo | undefined) {
     const novaCarteira = [...carteira];
     novaCarteira[index] = { ...novaCarteira[index], ativo };
     onCarteiraChange(novaCarteira);
@@ -41,13 +42,13 @@ export default function CarteiraForm({
   }
 
   function handleAdicionar() {
-    onCarteiraChange([...carteira, { ativo: null, peso: 0 }]);
+    onCarteiraChange([...carteira, { ativo: undefined, peso: 0 }]);
   }
 
   return (
     <div
       style={{
-        border: '1px solid #e5e7eb',
+        border: `1px solid ${COR_CARTEIRA}`,
         borderRadius: '8px',
         padding: '16px',
         display: 'flex',
@@ -56,7 +57,7 @@ export default function CarteiraForm({
       }}
     >
       <div style={{ display: 'grid', gridTemplateColumns: '60% 25% 15%', gap: '8px', alignItems: 'center' }}>
-        <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>
+        <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 600, color: '#1F5484' }}>
           {titulo}
         </h3>
         <span
@@ -87,9 +88,10 @@ export default function CarteiraForm({
       ))}
 
       <Button
-        label="Adicionar ativo"
+        label="ADICIONAR"
         severity="info"
         onClick={handleAdicionar}
+        style={{ backgroundColor: COR_VERDE, color: COR_PRETO, border: 'none' }}
       />
     </div>
   );

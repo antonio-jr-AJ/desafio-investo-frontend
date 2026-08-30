@@ -45,12 +45,12 @@ export default function GraficoRentabilidade({
   return (
     <div
       style={{
-        border: '1px solid #e5e7eb',
+        border: '1px solid #1F5484',
         borderRadius: '8px',
         padding: '16px',
       }}
     >
-      <h3 style={{ margin: '0 0 16px', fontSize: '16px', fontWeight: 600 }}>
+      <h3 style={{ margin: '0 0 16px', fontSize: '16px', fontWeight: 600, color: '#1F5484' }}>
         Rentabilidade (%)
       </h3>
       <ResponsiveContainer width="100%" height={400}>
@@ -161,7 +161,7 @@ function LegendaCustomizada({ nomeBenchmark }: { nomeBenchmark: string }) {
   ];
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', paddingTop: '8px' }}>
+    <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '24px', paddingTop: '8px' }}>
       {itens.map((item) => (
         <div key={item.nome} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <span

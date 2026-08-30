@@ -6,23 +6,44 @@ body .p-inputnumber .p-inputtext {
 }
 
 body .p-dropdown {
+  position: relative !important;
+  overflow: hidden !important;
   padding: 0 !important;
   height: 38px !important;
+  font-size: 0.8rem !important;
 }
 
 body .p-dropdown .p-dropdown-label {
-  padding: 0.5rem 0.75rem !important;
-  line-height: 1 !important;
+  display: block !important;
+  height: 100% !important;
+  line-height: 38px !important;
+  padding: 0 2.25rem 0 0.75rem !important;
+  font-size: 0.8rem !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
 }
 
 body .p-dropdown .p-dropdown-clear-icon {
-  right: 2.5rem !important;
+  right: 3.65rem !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
+  color: #1F5484 !important;
+}
+
+body .p-dropdown-panel {
+  padding: 0.5rem !important;
+  border: 1px solid #1F5484 !important;
+  border-radius: 4px !important;
 }
 
 body .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
   padding: 0.5rem 0.75rem !important;
+  font-size: 0.8rem !important;
+  border-radius: 4px !important;
 }
 
 body .p-dropdown-filter-container {
@@ -32,40 +53,69 @@ body .p-dropdown-filter-container {
 body .p-dropdown-filter {
   padding: 0.5rem 2.5rem 0.5rem 0.75rem !important;
   height: 38px !important;
+  font-size: 0.8rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+body .p-dropdown-trigger {
+  border-left: 1px solid #1F5484 !important;
+  color: #1F5484 !important;
 }
 
 body .p-dropdown-filter-icon {
   right: 0.75rem !important;
   top: 50% !important;
-  margin-top: -0.5rem !important;
+  margin-top: -0.75rem !important;
 }
 
 body .p-calendar-panel {
-  padding: 0.5rem !important;
+  padding: 0.75rem !important;
+  border: 1px solid #1F5484 !important;
+  border-radius: 8px !important;
 }
 
 body .p-calendar-panel .p-datepicker {
-  padding: 0.5rem !important;
+  padding: 0 !important;
 }
 
 body .p-calendar-panel .p-datepicker-header {
-  padding: 0.5rem !important;
+  padding: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 body .p-calendar-panel .p-datepicker-header .p-datepicker-prev,
 body .p-calendar-panel .p-datepicker-header .p-datepicker-next {
   width: 2rem !important;
   height: 2rem !important;
+  font-size: 0.8rem !important;
 }
 
 body .p-calendar-panel .p-datepicker-header .p-datepicker-title {
   gap: 0.5rem !important;
+  font-size: 0.8rem !important;
+}
+
+body .p-calendar-panel .p-datepicker table {
+  border-spacing: 0 !important;
+}
+
+body .p-calendar-panel .p-datepicker table th {
+  padding: 0.5rem 0.25rem !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  color: #1F5484 !important;
 }
 
 body .p-calendar-panel .p-datepicker table td span {
   padding: 0.4rem !important;
   width: 2rem !important;
   height: 2rem !important;
+  border-radius: 4px !important;
+  font-size: 0.8rem !important;
+}
+
+body .p-calendar-panel .p-datepicker table td span:hover {
+  background: #f0f0f0 !important;
 }
 
 body .p-calendar-panel .p-timepicker {
@@ -75,6 +125,53 @@ body .p-calendar-panel .p-timepicker {
 body .p-button {
   padding: 0.5rem 1rem !important;
   height: 38px !important;
+}
+
+body .p-button:focus,
+body .p-button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+body .p-inputtext:focus,
+body .p-inputtext.p-focus,
+body .p-inputtext:enabled:hover,
+body .p-dropdown:focus,
+body .p-dropdown.p-focus,
+body .p-dropdown:not(.p-disabled):hover,
+body .p-calendar:focus,
+body .p-calendar.p-focus,
+body .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext,
+body .p-calendar .p-inputtext:enabled:hover,
+body .p-calendar:not(.p-disabled):hover,
+body .p-calendar:hover,
+body .p-calendar:hover .p-inputtext,
+body .p-inputnumber:focus,
+body .p-inputnumber.p-focus,
+body .p-inputnumber:not(.p-disabled):hover,
+body .p-inputnumber:hover,
+body .p-inputnumber:hover .p-inputtext,
+body .p-inputnumber .p-inputtext:enabled:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #1F5484 !important;
+  transition: none !important;
+}
+
+body .p-calendar .p-inputtext,
+body .p-inputnumber .p-inputtext {
+  transition: none !important;
+  border: none !important;
+}
+
+body .p-calendar:hover,
+body .p-calendar:hover .p-inputtext,
+body .p-inputnumber:hover,
+body .p-inputnumber:hover .p-inputtext {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #1F5484 !important;
+  transition: none !important;
 }
 
 body .p-toast {
@@ -89,4 +186,108 @@ body .p-toast-message {
 body .p-toast-message-content {
   padding: 0 !important;
   gap: 0.5rem !important;
+}
+
+body .p-float-label {
+  width: 100%;
+}
+
+body .p-float-label label {
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  top: 50% !important;
+  margin-top: -0.4rem !important;
+  color: #1F5484 !important;
+}
+
+body .p-float-label input,
+body .p-float-label .p-dropdown,
+body .p-float-label .p-calendar {
+  width: 100% !important;
+}
+
+body .p-float-label .p-dropdown {
+  border: 1px solid #1F5484;
+  border-radius: 4px;
+}
+
+body .p-float-label .p-inputnumber {
+  border: 1px solid #1F5484;
+  border-radius: 4px;
+}
+
+body .p-float-label .p-calendar {
+  border: 1px solid #1F5484;
+  border-radius: 4px;
+}
+
+body .p-float-label .p-calendar .p-inputtext {
+  border-right: none !important;
+}
+
+body .p-float-label .p-calendar .p-datepicker-trigger {
+  color: #1F5484 !important;
+  border: none !important;
+  background: #fff !important;
+}
+
+body .p-datepicker-header {
+  padding-bottom: 0.5rem !important;
+  border: none;
+}
+
+body .p-datepicker table td, th, td > span {
+  font-size: 0.8rem !important;
+}
+
+body .p-float-label:has(.p-dropdown.p-focus) label,
+body .p-float-label:has(.p-dropdown.p-inputwrapper-filled) label,
+body .p-float-label:has(.p-dropdown.p-inputwrapper-focus) label,
+body .p-float-label:has(.p-inputnumber.p-focus) label,
+body .p-float-label:has(.p-inputnumber.p-inputwrapper-filled) label,
+body .p-float-label:has(.p-inputnumber.p-inputwrapper-focus) label,
+body .p-float-label:has(.p-calendar.p-focus) label,
+body .p-float-label:has(.p-calendar.p-inputwrapper-filled) label,
+body .p-float-label:has(.p-calendar.p-inputwrapper-focus) label {
+  top: -0.4rem !important;
+  margin-top: 0 !important;
+  font-size: 12px;
+  background: white;
+  padding: 0 4px;
+}
+
+body .p-float-label .p-dropdown-label {
+  display: flex;
+  align-items: center;
+}
+
+body .p-datatable .p-datatable-thead > tr > th {
+  background-color: #1F5484 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 12px 16px !important;
+  border: none !important;
+}
+
+body .p-datatable .p-datatable-thead > tr > th:first-child {
+  border-radius: 20px 0 0 20px !important;
+}
+
+body .p-datatable .p-datatable-thead > tr > th:last-child {
+  border-radius: 0 20px 20px 0 !important;
+}
+
+body .p-datatable .p-datatable-tbody > tr > td {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  font-size: 14px !important;
+}
+
+body .p-datatable .p-datatable-tbody > tr {
+  background-color: #ffffff !important;
+}
+
+body .p-datatable .p-datatable-tbody > tr:hover {
+  background-color: #f3f4f6 !important;
 }

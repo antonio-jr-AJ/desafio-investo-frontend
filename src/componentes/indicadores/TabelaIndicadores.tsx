@@ -81,54 +81,104 @@ export default function TabelaIndicadores({
     },
   ];
 
+  const headerStyle = {
+    backgroundColor: '#1F5484',
+    color: '#ffffff',
+    fontWeight: 600,
+    fontSize: '14px',
+    padding: '12px 16px',
+    textAlign: 'center' as const,
+  };
+
+  const cellStyle = {
+    padding: '12px 16px',
+    borderBottom: '1px solid #e5e7eb',
+    fontSize: '14px',
+  };
+
   return (
     <div
       style={{
-        border: '1px solid #e5e7eb',
+        border: '1px solid #1F5484',
         borderRadius: '8px',
         padding: '16px',
       }}
     >
-      <h3 style={{ margin: '0 0 16px', fontSize: '16px', fontWeight: 600 }}>
+      <h3 style={{ margin: '0 0 16px', fontSize: '16px', fontWeight: 600, color: '#1F5484' }}>
         Indicadores
       </h3>
-      <DataTable value={dados} size="small" stripedRows>
-        <Column field="carteira" header="Carteira"
+      <DataTable
+        value={dados}
+        size="small"
+        emptyMessage="Sem dados disponíveis"
+        tableStyle={{ minWidth: '100%', borderCollapse: 'collapse' }}
+      >
+        <Column
+          field="carteira"
+          header={<span style={headerStyle}>Carteira</span>}
           body={(row) => (
-            <span style={{ color: cores[row.carteira], fontWeight: 600 }}>
+            <span style={{ ...cellStyle, color: '#1F5484', fontWeight: 600, textAlign: 'left' }}>
               {row.carteira}
             </span>
-          )} />
-        <Column field="rentabilidade" header="Rentabilidade"
+          )}
+          headerStyle={headerStyle}
+          bodyStyle={cellStyle}
+        />
+        <Column
+          field="rentabilidade"
+          header={<span style={headerStyle}>Rentabilidade</span>}
           body={(row) => (
-            <span style={{ color: valorEhNegativo(row.rentabilidade) ? '#ef4444' : undefined }}>
+            <span style={{ ...cellStyle, color: valorEhNegativo(row.rentabilidade) ? '#ef4444' : undefined, textAlign: 'right' }}>
               {row.rentabilidade}
             </span>
-          )} />
-        <Column field="sharpe" header="Sharpe"
+          )}
+          headerStyle={headerStyle}
+          bodyStyle={cellStyle}
+        />
+        <Column
+          field="sharpe"
+          header={<span style={headerStyle}>Sharpe</span>}
           body={(row) => (
-            <span style={{ color: valorEhNegativo(row.sharpe) ? '#ef4444' : undefined }}>
+            <span style={{ ...cellStyle, color: valorEhNegativo(row.sharpe) ? '#ef4444' : undefined, textAlign: 'right' }}>
               {row.sharpe}
             </span>
-          )} />
-        <Column field="volatilidade" header="Volatilidade"
+          )}
+          headerStyle={headerStyle}
+          bodyStyle={cellStyle}
+        />
+        <Column
+          field="volatilidade"
+          header={<span style={headerStyle}>Volatilidade</span>}
           body={(row) => (
-            <span style={{ color: valorEhNegativo(row.volatilidade) ? '#ef4444' : undefined }}>
+            <span style={{ ...cellStyle, color: valorEhNegativo(row.volatilidade) ? '#ef4444' : undefined, textAlign: 'right' }}>
               {row.volatilidade}
             </span>
-          )} />
-        <Column field="drawdown" header="Drawdown"
+          )}
+          headerStyle={headerStyle}
+          bodyStyle={cellStyle}
+        />
+        <Column
+          field="drawdown"
+          header={<span style={headerStyle}>Drawdown</span>}
           body={(row) => (
-            <span style={{ color: valorEhNegativo(row.drawdown) ? '#ef4444' : undefined }}>
+            <span style={{ ...cellStyle, color: valorEhNegativo(row.drawdown) ? '#ef4444' : undefined, textAlign: 'right' }}>
               {row.drawdown}
             </span>
-          )} />
-        <Column field="percentualCDI" header="% CDI"
+          )}
+          headerStyle={headerStyle}
+          bodyStyle={cellStyle}
+        />
+        <Column
+          field="percentualCDI"
+          header={<span style={headerStyle}>% CDI</span>}
           body={(row) => (
-            <span style={{ color: valorEhNegativo(row.percentualCDI) ? '#ef4444' : undefined, fontWeight: 600 }}>
+            <span style={{ ...cellStyle, color: valorEhNegativo(row.percentualCDI) ? '#ef4444' : undefined, fontWeight: 600, textAlign: 'right' }}>
               {row.percentualCDI}
             </span>
-          )} />
+          )}
+          headerStyle={headerStyle}
+          bodyStyle={cellStyle}
+        />
       </DataTable>
     </div>
   );

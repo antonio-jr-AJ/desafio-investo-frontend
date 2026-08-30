@@ -21,12 +21,12 @@ export default function SimuladorPage() {
   const [indicesBenchmark, setIndicesBenchmark] = useState<IndiceBenchmark[]>([]);
   const [carregandoIndices, setCarregandoIndices] = useState(true);
 
-  const [carteiraA, setCarteiraA] = useState<Carteira[]>([{ ativo: null, peso: 100 }]);
-  const [carteiraB, setCarteiraB] = useState<Carteira[]>([{ ativo: null, peso: 100 }]);
+  const [carteiraA, setCarteiraA] = useState<Carteira[]>([{ ativo: undefined, peso: 100 }]);
+  const [carteiraB, setCarteiraB] = useState<Carteira[]>([{ ativo: undefined, peso: 100 }]);
 
   const [dataInicio, setDataInicio] = useState<Date | null>(null);
   const [dataFim, setDataFim] = useState<Date | null>(null);
-  const [benchmarkSelecionado, setBenchmarkSelecionado] = useState<string>('');
+  const [benchmarkSelecionado, setBenchmarkSelecionado] = useState<string | undefined>(undefined);
   const [benchmarkUsado, setBenchmarkUsado] = useState<string>('');
 
   const [indicadoresA, setIndicadoresA] = useState<Indicadores | null>(null);
@@ -301,7 +301,7 @@ export default function SimuladorPage() {
     <div>
       <Toast ref={toast} />
 
-      <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '24px', textAlign: 'center' }}>
+      <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '24px', textAlign: 'center', color: '#1F5484' }}>
         Comparador de Carteiras
       </h1>
 
