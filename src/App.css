@@ -6,15 +6,25 @@ body .p-inputnumber .p-inputtext {
 }
 
 body .p-dropdown {
+  position: relative !important;
+  overflow: hidden !important;
   padding: 0 !important;
   height: 38px !important;
   font-size: 0.8rem !important;
 }
 
 body .p-dropdown .p-dropdown-label {
-  padding: 0.5rem 0.75rem !important;
-  line-height: 1 !important;
+  display: block !important;
+  height: 100% !important;
+  line-height: 38px !important;
+  padding: 0 2.25rem 0 0.75rem !important;
   font-size: 0.8rem !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
 }
 
 body .p-dropdown .p-dropdown-clear-icon {
