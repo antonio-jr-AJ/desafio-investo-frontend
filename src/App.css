@@ -31,11 +31,12 @@ body .p-dropdown .p-dropdown-clear-icon {
   right: 3.65rem !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
+  color: #1F5484 !important;
 }
 
 body .p-dropdown-panel {
   padding: 0.5rem !important;
-  border: 1px solid #6366f1 !important;
+  border: 1px solid #1F5484 !important;
   border-radius: 4px !important;
 }
 
@@ -57,7 +58,8 @@ body .p-dropdown-filter {
 }
 
 body .p-dropdown-trigger {
-  border-left: 1px solid #6366f1 !important;
+  border-left: 1px solid #1F5484 !important;
+  color: #1F5484 !important;
 }
 
 body .p-dropdown-filter-icon {
@@ -126,6 +128,7 @@ body .p-float-label label {
   font-weight: 500 !important;
   top: 50% !important;
   margin-top: -0.4rem !important;
+  color: #1F5484 !important;
 }
 
 body .p-float-label input,
@@ -135,7 +138,12 @@ body .p-float-label .p-calendar {
 }
 
 body .p-float-label .p-dropdown {
-  border: 1px solid #6366f1;
+  border: 1px solid #1F5484;
+  border-radius: 4px;
+}
+
+body .p-float-label .p-inputnumber {
+  border: 1px solid #1F5484;
   border-radius: 4px;
 }
 

@@ -2,7 +2,7 @@ import { Button } from 'primereact/button';
 import LinhaAtivo from './LinhaAtivo';
 import type { Ativo, Carteira } from '../../dominio/tipos';
 import { calcularSomaPesos, validarSomaPesos } from '../../utils/validacoes';
-import { COR_VERDE, COR_PRETO } from '../../dominio/constantes';
+import { COR_VERDE, COR_PRETO, COR_CARTEIRA } from '../../dominio/constantes';
 
 interface CarteiraFormProps {
   titulo: string;
@@ -48,7 +48,7 @@ export default function CarteiraForm({
   return (
     <div
       style={{
-        border: '1px solid #e5e7eb',
+        border: `1px solid ${COR_CARTEIRA}`,
         borderRadius: '8px',
         padding: '16px',
         display: 'flex',
@@ -57,7 +57,7 @@ export default function CarteiraForm({
       }}
     >
       <div style={{ display: 'grid', gridTemplateColumns: '60% 25% 15%', gap: '8px', alignItems: 'center' }}>
-        <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>
+        <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 600, color: '#1F5484' }}>
           {titulo}
         </h3>
         <span
@@ -88,7 +88,7 @@ export default function CarteiraForm({
       ))}
 
       <Button
-        label="Adicionar ativo"
+        label="ADICIONAR"
         severity="info"
         onClick={handleAdicionar}
         style={{ backgroundColor: COR_VERDE, color: COR_PRETO, border: 'none' }}

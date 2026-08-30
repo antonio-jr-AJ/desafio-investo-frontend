@@ -11,3 +11,4 @@ export const PESO_MINIMO = 0;
 export const COR_VERDE = '#00F0C5';
 export const COR_PRETO = '#000';
 export const COR_VERMELHO = '#FF4757';
+export const COR_CARTEIRA = '#1F5484';
