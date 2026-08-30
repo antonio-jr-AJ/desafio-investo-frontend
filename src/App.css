@@ -69,33 +69,53 @@ body .p-dropdown-filter-icon {
 }
 
 body .p-calendar-panel {
-  padding: 0.5rem !important;
+  padding: 0.75rem !important;
   border: 1px solid #1F5484 !important;
-  border-radius: 4px !important;
+  border-radius: 8px !important;
 }
 
 body .p-calendar-panel .p-datepicker {
-  padding: 0.5rem !important;
+  padding: 0 !important;
 }
 
 body .p-calendar-panel .p-datepicker-header {
-  padding: 0.5rem !important;
+  padding: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 body .p-calendar-panel .p-datepicker-header .p-datepicker-prev,
 body .p-calendar-panel .p-datepicker-header .p-datepicker-next {
   width: 2rem !important;
   height: 2rem !important;
+  font-size: 0.8rem !important;
 }
 
 body .p-calendar-panel .p-datepicker-header .p-datepicker-title {
   gap: 0.5rem !important;
+  font-size: 0.8rem !important;
+}
+
+body .p-calendar-panel .p-datepicker table {
+  border-spacing: 0 !important;
+}
+
+body .p-calendar-panel .p-datepicker table th {
+  padding: 0.5rem 0.25rem !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  color: #1F5484 !important;
 }
 
 body .p-calendar-panel .p-datepicker table td span {
   padding: 0.4rem !important;
   width: 2rem !important;
   height: 2rem !important;
+  border-radius: 4px !important;
+  font-size: 0.8rem !important;
+}
+
+body .p-calendar-panel .p-datepicker table td span:hover {
+  background: #f0f0f0 !important;
 }
 
 body .p-calendar-panel .p-timepicker {
@@ -105,6 +125,53 @@ body .p-calendar-panel .p-timepicker {
 body .p-button {
   padding: 0.5rem 1rem !important;
   height: 38px !important;
+}
+
+body .p-button:focus,
+body .p-button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+body .p-inputtext:focus,
+body .p-inputtext.p-focus,
+body .p-inputtext:enabled:hover,
+body .p-dropdown:focus,
+body .p-dropdown.p-focus,
+body .p-dropdown:not(.p-disabled):hover,
+body .p-calendar:focus,
+body .p-calendar.p-focus,
+body .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext,
+body .p-calendar .p-inputtext:enabled:hover,
+body .p-calendar:not(.p-disabled):hover,
+body .p-calendar:hover,
+body .p-calendar:hover .p-inputtext,
+body .p-inputnumber:focus,
+body .p-inputnumber.p-focus,
+body .p-inputnumber:not(.p-disabled):hover,
+body .p-inputnumber:hover,
+body .p-inputnumber:hover .p-inputtext,
+body .p-inputnumber .p-inputtext:enabled:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #1F5484 !important;
+  transition: none !important;
+}
+
+body .p-calendar .p-inputtext,
+body .p-inputnumber .p-inputtext {
+  transition: none !important;
+  border: none !important;
+}
+
+body .p-calendar:hover,
+body .p-calendar:hover .p-inputtext,
+body .p-inputnumber:hover,
+body .p-inputnumber:hover .p-inputtext {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #1F5484 !important;
+  transition: none !important;
 }
 
 body .p-toast {
@@ -162,6 +229,15 @@ body .p-float-label .p-calendar .p-datepicker-trigger {
   color: #1F5484 !important;
   border: none !important;
   background: #fff !important;
+}
+
+body .p-datepicker-header {
+  padding-bottom: 0.5rem !important;
+  border: none;
+}
+
+body .p-datepicker table td, th, td > span {
+  font-size: 0.8rem !important;
 }
 
 body .p-float-label:has(.p-dropdown.p-focus) label,
