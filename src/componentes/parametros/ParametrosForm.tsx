@@ -3,6 +3,7 @@ import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import { FloatLabel } from 'primereact/floatlabel';
 import type { IndiceBenchmark } from '../../dominio/tipos';
+import { COR_VERDE, COR_PRETO } from '../../dominio/constantes';
 
 interface ParametrosFormProps {
   dataInicio: Date | null;
@@ -104,12 +105,11 @@ export default function ParametrosForm({
           Ação
         </label>
         <Button
-          label="Simular"
-          icon="pi pi-play"
+          label="SIMULAR"
           onClick={onSimular}
           disabled={desabilitar || carregando}
           loading={carregando}
-          style={{ width: '100%' }}
+          style={{ width: '100%', backgroundColor: COR_VERDE, color: COR_PRETO, border: 'none' }}
         />
       </div>
     </div>

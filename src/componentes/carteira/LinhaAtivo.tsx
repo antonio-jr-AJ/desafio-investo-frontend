@@ -3,6 +3,7 @@ import { FloatLabel } from 'primereact/floatlabel';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import type { Ativo, Carteira } from '../../dominio/tipos';
+import { COR_VERMELHO } from '../../dominio/constantes';
 
 interface LinhaAtivoProps {
   carteira: Carteira[];
@@ -79,6 +80,7 @@ export default function LinhaAtivo({
           severity="danger"
           onClick={() => onRemover(index)}
           disabled={desabilitarRemover}
+          style={{ backgroundColor: COR_VERMELHO, border: 'none' }}
         />
       </div>
     </div>

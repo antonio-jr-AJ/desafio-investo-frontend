@@ -7,3 +7,7 @@ export const COR_BENCHMARK = '#1e293b';
 
 export const PESO_MAXIMO = 100;
 export const PESO_MINIMO = 0;
+
+export const COR_VERDE = '#00F0C5';
+export const COR_PRETO = '#000';
+export const COR_VERMELHO = '#FF4757';

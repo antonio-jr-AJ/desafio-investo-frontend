@@ -2,6 +2,7 @@ import { Button } from 'primereact/button';
 import LinhaAtivo from './LinhaAtivo';
 import type { Ativo, Carteira } from '../../dominio/tipos';
 import { calcularSomaPesos, validarSomaPesos } from '../../utils/validacoes';
+import { COR_VERDE, COR_PRETO } from '../../dominio/constantes';
 
 interface CarteiraFormProps {
   titulo: string;
@@ -90,6 +91,7 @@ export default function CarteiraForm({
         label="Adicionar ativo"
         severity="info"
         onClick={handleAdicionar}
+        style={{ backgroundColor: COR_VERDE, color: COR_PRETO, border: 'none' }}
       />
     </div>
   );
