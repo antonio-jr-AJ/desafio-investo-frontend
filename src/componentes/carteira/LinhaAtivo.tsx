@@ -1,4 +1,5 @@
 import { Dropdown } from 'primereact/dropdown';
+import { FloatLabel } from 'primereact/floatlabel';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import type { Ativo, Carteira } from '../../dominio/tipos';
@@ -40,30 +41,37 @@ export default function LinhaAtivo({
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '60% 25% 15%', gap: '12px', alignItems: 'center' }}>
       <div style={{ minWidth: 0 }}>
-        <Dropdown
-          value={item.ativo}
-          options={opcoesAtivos}
-          onChange={(e) => onAtivoChange(index, e.value)}
-          placeholder="Selecione um ativo"
-          filter
-          filterBy="label"
-          style={{ width: '100%' }}
-          showClear
-        />
+        <FloatLabel>
+          <Dropdown
+            id={`ativo-${index}`}
+            value={item.ativo}
+            options={opcoesAtivos}
+            onChange={(e) => onAtivoChange(index, e.value)}
+            filter
+            filterBy="label"
+            style={{ width: '100%' }}
+            showClear
+          />
+          <label htmlFor={`ativo-${index}`}>Ativo</label>
+        </FloatLabel>
       </div>
       <div style={{ width: '100%', minWidth: 0 }}>
-        <InputNumber
-          value={item.peso}
-          onValueChange={(e) => onPesoChange(index, e.value ?? 0)}
-          suffix="%"
-          min={0}
-          max={100}
-          mode="decimal"
-          minFractionDigits={0}
-          maxFractionDigits={2}
-          style={{ width: '100%' }}
-          inputStyle={{ width: '100%' }}
-        />
+        <FloatLabel>
+          <InputNumber
+            id={`peso-${index}`}
+            value={item.peso}
+            onValueChange={(e) => onPesoChange(index, e.value ?? 0)}
+            suffix="%"
+            min={0}
+            max={100}
+            mode="decimal"
+            minFractionDigits={0}
+            maxFractionDigits={2}
+            style={{ width: '100%' }}
+            inputStyle={{ width: '100%' }}
+          />
+          <label htmlFor={`peso-${index}`}>Peso</label>
+        </FloatLabel>
       </div>
       <div style={{ minWidth: 0 }}>
         <Button

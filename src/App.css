@@ -8,21 +8,31 @@ body .p-inputnumber .p-inputtext {
 body .p-dropdown {
   padding: 0 !important;
   height: 38px !important;
+  font-size: 0.8rem !important;
 }
 
 body .p-dropdown .p-dropdown-label {
   padding: 0.5rem 0.75rem !important;
   line-height: 1 !important;
+  font-size: 0.8rem !important;
 }
 
 body .p-dropdown .p-dropdown-clear-icon {
-  right: 2.5rem !important;
+  right: 3.65rem !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
 }
 
+body .p-dropdown-panel {
+  padding: 0.5rem !important;
+  border: 1px solid #6366f1 !important;
+  border-radius: 4px !important;
+}
+
 body .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
   padding: 0.5rem 0.75rem !important;
+  font-size: 0.8rem !important;
+  border-radius: 4px !important;
 }
 
 body .p-dropdown-filter-container {
@@ -32,6 +42,12 @@ body .p-dropdown-filter-container {
 body .p-dropdown-filter {
   padding: 0.5rem 2.5rem 0.5rem 0.75rem !important;
   height: 38px !important;
+  font-size: 0.8rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+body .p-dropdown-trigger {
+  border-left: 1px solid #6366f1 !important;
 }
 
 body .p-dropdown-filter-icon {
@@ -89,4 +105,41 @@ body .p-toast-message {
 body .p-toast-message-content {
   padding: 0 !important;
   gap: 0.5rem !important;
+}
+
+body .p-float-label {
+  width: 100%;
+}
+
+body .p-float-label label {
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  top: 50% !important;
+  margin-top: -0.4rem !important;
+}
+
+body .p-float-label input,
+body .p-float-label .p-dropdown,
+body .p-float-label .p-calendar {
+  width: 100% !important;
+}
+
+body .p-float-label .p-dropdown {
+  border: 1px solid #6366f1;
+  border-radius: 4px;
+}
+
+body .p-float-label:has(.p-dropdown.p-focus) label,
+body .p-float-label:has(.p-dropdown.p-inputwrapper-filled) label,
+body .p-float-label:has(.p-dropdown.p-inputwrapper-focus) label {
+  top: -0.4rem !important;
+  margin-top: 0 !important;
+  font-size: 12px;
+  background: white;
+  padding: 0 4px;
+}
+
+body .p-float-label .p-dropdown-label {
+  display: flex;
+  align-items: center;
 }
