@@ -9,7 +9,7 @@ interface LinhaAtivoProps {
   index: number;
   ativos: Ativo[];
   ativosSelecionados: string[];
-  onAtivoChange: (index: number, ativo: Ativo | null) => void;
+  onAtivoChange: (index: number, ativo: Ativo | undefined) => void;
   onPesoChange: (index: number, peso: number) => void;
   onRemover: (index: number) => void;
   desabilitarRemover: boolean;
@@ -46,7 +46,7 @@ export default function LinhaAtivo({
             id={`ativo-${index}`}
             value={item.ativo}
             options={opcoesAtivos}
-            onChange={(e) => onAtivoChange(index, e.value)}
+            onChange={(e) => onAtivoChange(index, e.value ?? undefined)}
             filter
             filterBy="label"
             style={{ width: '100%' }}

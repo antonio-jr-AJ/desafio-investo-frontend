@@ -23,7 +23,7 @@ export default function CarteiraForm({
   const soma = calcularSomaPesos(carteira);
   const valido = validarSomaPesos(carteira);
 
-  function handleAtivoChange(index: number, ativo: Ativo | null) {
+  function handleAtivoChange(index: number, ativo: Ativo | undefined) {
     const novaCarteira = [...carteira];
     novaCarteira[index] = { ...novaCarteira[index], ativo };
     onCarteiraChange(novaCarteira);
@@ -41,7 +41,7 @@ export default function CarteiraForm({
   }
 
   function handleAdicionar() {
-    onCarteiraChange([...carteira, { ativo: null, peso: 0 }]);
+    onCarteiraChange([...carteira, { ativo: undefined, peso: 0 }]);
   }
 
   return (

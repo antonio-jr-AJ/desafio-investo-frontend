@@ -9,11 +9,11 @@ interface ParametrosFormProps {
   dataFim: Date | null;
   dataMinima: string;
   dataMaxima: string;
-  benchmarkSelecionado: string;
+  benchmarkSelecionado: string | undefined;
   indicesBenchmark: IndiceBenchmark[];
   onDataInicioChange: (data: Date | null) => void;
   onDataFimChange: (data: Date | null) => void;
-  onBenchmarkChange: (codigo: string) => void;
+  onBenchmarkChange: (codigo: string | undefined) => void;
   onSimular: () => void;
   desabilitar: boolean;
   carregando: boolean;
@@ -93,7 +93,7 @@ export default function ParametrosForm({
             id="benchmark"
             value={benchmarkSelecionado}
             options={benchmarkOpcoes}
-            onChange={(e) => onBenchmarkChange(e.value)}
+            onChange={(e) => onBenchmarkChange(e.value ?? undefined)}
             showClear
           />
           <label htmlFor="benchmark">Benchmark</label>

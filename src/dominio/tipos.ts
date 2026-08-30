@@ -18,7 +18,7 @@ export interface AtivosResponse {
 }
 
 export interface Carteira {
-  ativo: Ativo | null;
+  ativo: Ativo | undefined;
   peso: number;
 }
 

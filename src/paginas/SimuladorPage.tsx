@@ -21,12 +21,12 @@ export default function SimuladorPage() {
   const [indicesBenchmark, setIndicesBenchmark] = useState<IndiceBenchmark[]>([]);
   const [carregandoIndices, setCarregandoIndices] = useState(true);
 
-  const [carteiraA, setCarteiraA] = useState<Carteira[]>([{ ativo: null, peso: 100 }]);
-  const [carteiraB, setCarteiraB] = useState<Carteira[]>([{ ativo: null, peso: 100 }]);
+  const [carteiraA, setCarteiraA] = useState<Carteira[]>([{ ativo: undefined, peso: 100 }]);
+  const [carteiraB, setCarteiraB] = useState<Carteira[]>([{ ativo: undefined, peso: 100 }]);
 
   const [dataInicio, setDataInicio] = useState<Date | null>(null);
   const [dataFim, setDataFim] = useState<Date | null>(null);
-  const [benchmarkSelecionado, setBenchmarkSelecionado] = useState<string>('');
+  const [benchmarkSelecionado, setBenchmarkSelecionado] = useState<string | undefined>(undefined);
   const [benchmarkUsado, setBenchmarkUsado] = useState<string>('');
 
   const [indicadoresA, setIndicadoresA] = useState<Indicadores | null>(null);
