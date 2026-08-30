@@ -70,6 +70,8 @@ body .p-dropdown-filter-icon {
 
 body .p-calendar-panel {
   padding: 0.5rem !important;
+  border: 1px solid #1F5484 !important;
+  border-radius: 4px !important;
 }
 
 body .p-calendar-panel .p-datepicker {
@@ -147,12 +149,30 @@ body .p-float-label .p-inputnumber {
   border-radius: 4px;
 }
 
+body .p-float-label .p-calendar {
+  border: 1px solid #1F5484;
+  border-radius: 4px;
+}
+
+body .p-float-label .p-calendar .p-inputtext {
+  border-right: none !important;
+}
+
+body .p-float-label .p-calendar .p-datepicker-trigger {
+  color: #1F5484 !important;
+  border: none !important;
+  background: #fff !important;
+}
+
 body .p-float-label:has(.p-dropdown.p-focus) label,
 body .p-float-label:has(.p-dropdown.p-inputwrapper-filled) label,
 body .p-float-label:has(.p-dropdown.p-inputwrapper-focus) label,
 body .p-float-label:has(.p-inputnumber.p-focus) label,
 body .p-float-label:has(.p-inputnumber.p-inputwrapper-filled) label,
-body .p-float-label:has(.p-inputnumber.p-inputwrapper-focus) label {
+body .p-float-label:has(.p-inputnumber.p-inputwrapper-focus) label,
+body .p-float-label:has(.p-calendar.p-focus) label,
+body .p-float-label:has(.p-calendar.p-inputwrapper-filled) label,
+body .p-float-label:has(.p-calendar.p-inputwrapper-focus) label {
   top: -0.4rem !important;
   margin-top: 0 !important;
   font-size: 12px;
