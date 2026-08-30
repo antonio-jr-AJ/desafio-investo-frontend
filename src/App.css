@@ -141,7 +141,10 @@ body .p-float-label .p-dropdown {
 
 body .p-float-label:has(.p-dropdown.p-focus) label,
 body .p-float-label:has(.p-dropdown.p-inputwrapper-filled) label,
-body .p-float-label:has(.p-dropdown.p-inputwrapper-focus) label {
+body .p-float-label:has(.p-dropdown.p-inputwrapper-focus) label,
+body .p-float-label:has(.p-inputnumber.p-focus) label,
+body .p-float-label:has(.p-inputnumber.p-inputwrapper-filled) label,
+body .p-float-label:has(.p-inputnumber.p-inputwrapper-focus) label {
   top: -0.4rem !important;
   margin-top: 0 !important;
   font-size: 12px;
